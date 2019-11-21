@@ -1,0 +1,29 @@
+{
+  "name": "goodvoice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "huyanan",
+  "license": "MIT",
+  "window": {
+      "title": "demo",
+      "icon": "link.png",
+      "toolbar": true,
+      "frame": true,
+      "width": 800,
+      "height": 500,
+      "position": "center",
+      "resizable":true,
+      "fullscreen":false,
+      "min_width": 400,
+      "min_height": 200,
+      "max_width": 800,
+      "max_height": 600
+  },
+  "webkit": {
+      "plugin": true
+  }
+}
