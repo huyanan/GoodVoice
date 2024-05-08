@@ -1,41 +1,67 @@
-// initialize your app
-// and ...
-// nw.Window.open('index.html', {}, function(win) {});
+const ioHook = require('iohook');
+const player1 = require('play-sound')();
+const player2 = require('play-sound')();
 
-// Load native UI library.
-
-var gui = require('nw.gui');
-
-var option = {
-  key : "A",
-  active : function() {
-    console.log("Global desktop keyboard shortcut: " + this.key + " active.");
-  },
-  failed : function(msg) {
-    // :(, fail to register the |key| or couldn't parse the |key|.
-    console.log(msg);
-  }
-};
-
-// Create a shortcut with |option|.
-var shortcut = new gui.Shortcut(option);
-
-// Register global desktop shortcut, which can work without focus.
-gui.App.registerGlobalHotKey(shortcut);
-
-// If register |shortcut| successfully and user struck "Ctrl+Shift+A", |shortcut|
-// will get an "active" event.
-
-// You can also add listener to shortcut's active and failed event.
-shortcut.on('active', function() {
-  console.log("Global desktop keyboard shortcut: " + this.key + " active.");
-  document.write("Global desktop keyboard shortcut: " + this.key + " active.")
+// 注册键盘事件监听器
+ioHook.on("keydown", event => {
+  // console.log('keydown', {
+  //   ctrlKey: event.ctrlKey,
+  //   metaKey: event.metaKey,
+  //   keycode: event.keycode
+  // });
+  console.log(event)
+  // try {
+  //   // 判断是否按下了组合键 Command + Control + L (MacOS)
+  //   if (event.metaKey && event.ctrlKey && event.keycode === 38) {
+  //     // 播放音频
+  //     player1.play('./turn_around.mp3', function(err){
+  //         if (err) console.log('Error occurred while playing audio:', err);
+  //     });
+  //     player2.play('./cheer.mp3', function(err){
+  //       if (err) console.log('Error occurred while playing audio:', err);
+  //     });
+  //   }
+  // } catch (error) {
+  //   console.error('Error:', error);
+  // }
 });
 
-shortcut.on('failed', function(msg) {
-  console.log(msg);
-  document.write(msg)
-});
+// control
+// keycode 29 rowcode 59
+// command
+// keycode 3675 rowcode 55
+// l的keycode
+// keycode 38 rowcode 37
+try {
+  const id = ioHook.registerShortcut(
+    [59, 55, 37],
+    (keys) => {
+      console.log('Shortcut called with keys:', keys);
+      playSound();
+    },
+    (keys) => {
+      console.log('Shortcut has been released!');
+    }
+  );
+  
+} catch (error) {
+  console.log(error)
+}
 
-// Unregister the global desktop shortcut.
-// gui.App.unregisterGlobalHotKey(shortcut);
+function playSound() {
+  // 播放音频
+  player1.play('./turn_around.mp3', function(err){
+      if (err) console.log('Error occurred while playing audio:', err);
+  });
+  player2.play('./cheer.mp3', function(err){
+    if (err) console.log('Error occurred while playing audio:', err);
+  });
+}
+
+
+
+
+// 启动键盘事件监听
+ioHook.useRawcode(true);
+ioHook.start(); // debug mode
+// ioHook.start(true); // debug mode

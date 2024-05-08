@@ -4,26 +4,50 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js"
+  },
+  "engines": {
+    "node": ">=15.0.0"
   },
   "author": "huyanan",
   "license": "MIT",
   "window": {
-      "title": "demo",
-      "icon": "link.png",
-      "toolbar": true,
-      "frame": true,
-      "width": 800,
-      "height": 500,
-      "position": "center",
-      "resizable":true,
-      "fullscreen":false,
-      "min_width": 400,
-      "min_height": 200,
-      "max_width": 800,
-      "max_height": 600
+    "title": "demo",
+    "icon": "link.png",
+    "toolbar": true,
+    "frame": true,
+    "width": 800,
+    "height": 500,
+    "position": "center",
+    "resizable": true,
+    "fullscreen": false,
+    "min_width": 400,
+    "min_height": 200,
+    "max_width": 800,
+    "max_height": 600
   },
   "webkit": {
-      "plugin": true
+    "plugin": true
+  },
+  "iohook": {
+    "targets": [
+      "node-108",
+      "electron-116"
+    ],
+    "platforms": [
+      "win32",
+      "darwin",
+      "linux"
+    ],
+    "arches": [
+      "x64",
+      "arm64",
+      "ia32"
+    ]
+  },
+  "dependencies": {
+    "iohook": "git+https://github.com/huyanan/iohook#v0.9.4",
+    "play-sound": "^1.1.6"
   }
 }
